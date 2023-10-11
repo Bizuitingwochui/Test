@@ -43,11 +43,29 @@ public class fenzhijiegou1 {
 //        int max =a>b?a:b;
 //        System.out.println("MAX="+max);
 
-        int num =5;         //带数（6,5）
-        if (num%2==0){
-            System.out.println(num+"是偶数");
+//        int num =5;         //带数（6,5）
+////        if (num%2==0){
+////            System.out.println(num+"是偶数");
+////        }
+////        System.out.println("继续执行");
+
+//        double a =300.0; // 600.0  300.0
+//        if (a >=500){
+//            a *= 0.8;
+//        }
+//        else {
+//            a *= 0.9;
+//        }
+//        System.out.println("实际需要支付"+a+"元");
+
+        double score=195;
+        if (score>=0 && score<=100){
+            System.out.println("成绩合法");
         }
-        System.out.println("继续执行");
+        else {
+            System.out.println("成绩非法");
+        }
+
 
 
 
