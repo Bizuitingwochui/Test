@@ -58,13 +58,13 @@ public class fenzhijiegou1 {
 //        }
 //        System.out.println("实际需要支付"+a+"元");
 
-        double score=195;
-        if (score>=0 && score<=100){
-            System.out.println("成绩合法");
-        }
-        else {
-            System.out.println("成绩非法");
-        }
+//        double score=195;
+//        if (score>=0 && score<=100){
+//            System.out.println("成绩合法");
+//        }
+//        else {
+//            System.out.println("成绩非法");
+//        }
 
 
 
