@@ -1,4 +1,4 @@
-package ooday07;
+package ooday01;
 
 
 public class Student {

@@ -1,13 +1,7 @@
 package submarine;
 
-public class BattleShip {
-    int width;
-    int height;
-    int x;
-    int y;
-    int speed;
+public class BattleShip extends SeaObject{
     int life;
-
 
     // 构造方法
     BattleShip(){
@@ -18,6 +12,8 @@ public class BattleShip {
         speed = 20;
         life = 5;
     }
+
+
 
 
 }

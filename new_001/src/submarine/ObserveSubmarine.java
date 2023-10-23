@@ -2,13 +2,7 @@ package submarine;
 import java.util.Random;
 
 
-public class ObserveSubmarine {
-    int width;
-    int height;
-    int x;
-    int y;
-    int speed;
-
+public class ObserveSubmarine extends SeaObject{
 
     // 构造方法
     ObserveSubmarine(){
@@ -27,9 +21,10 @@ public class ObserveSubmarine {
         y = rand.nextInt(479-height-150+1)+150              460的由来 整个背景的y减去该图片的y
          */
 
-
-
-
-
     }
+
+    void move(){
+        System.out.println("侦查艇开始移动");
+    }
+
 }

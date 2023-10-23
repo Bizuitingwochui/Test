@@ -1,13 +1,6 @@
 package submarine;
 
-public class Bomb {
-    int width;
-    int height;
-    int x;
-    int y;
-    int speed;
-
-
+public class Bomb extends SeaObject{
     // 构造方法
     Bomb(int x,int y){                             //炸弹坐标需要根据战舰坐标计算出来
         width = 9;
@@ -15,5 +8,9 @@ public class Bomb {
         this.x = x;
         this.y = y;
         speed = 3;
+    }
+
+    void move(){
+        System.out.println("炸弹开始移动");
     }
 }
