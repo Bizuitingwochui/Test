@@ -3,25 +3,36 @@ package submarine;
 public class World {    //游戏窗口
     public static void main(String[] args) {
 
-
-
-
-        ObserveSubmarine[] oses = new ObserveSubmarine[8];      //侦查潜艇
-
-        for (int i=0;i< oses.length;i++){           //数组赋值
-            oses[i] = new ObserveSubmarine();
-        }
 //        oses[0] = new ObserveSubmarine();
 //        oses[1] = new ObserveSubmarine();
 //        oses[2] = new ObserveSubmarine();
 //        oses[1].x = 10;
 //        oses[2].move();
 
+        SeaObject[] seaObjects = new SeaObject[5];          //向上造型 代码复用
+        seaObjects[1] = new ObserveSubmarine();
+        seaObjects[2] = new ObserveSubmarine();
+        seaObjects[3] = new TorpedoSubmarine();
+        seaObjects[4] = new TorpedoSubmarine();
+        seaObjects[5] = new MineSubmarine();
+
+        for (int i=0;i<seaObjects.length;i++){
+            SeaObject s = seaObjects[i];
+            System.out.println(s.width+","+s.height+","+s.x+","+s.y+","+s.speed);
+            s.move();
+        }
+
+/*
+        ObserveSubmarine[] oses = new ObserveSubmarine[8];      //侦查潜艇
+        for (int i=0;i< oses.length;i++){           //数组赋值
+            oses[i] = new ObserveSubmarine();
+        }
         for (int i=0;i<oses.length;i++){
             //输出每个的 x y speed
             System.out.println(oses[i].x+","+oses[i].y+","+oses[i].speed);
             //输出开始移动
             oses[i].move();
+            //能够移动 并且能被炸弹打
         }
 
 
@@ -32,7 +43,9 @@ public class World {    //游戏窗口
         for (int i=0;i< toes.length;i++){
             System.out.println(toes[i].x+","+toes[i].y+","+toes[i].speed);
             toes[i].move();
+            //能够移动 并且能被炸弹打
         }
+
 
         MineSubmarine[] mies = new MineSubmarine[4];
         for (int i=0;i< mies.length;i++){
@@ -41,15 +54,20 @@ public class World {    //游戏窗口
         for (int i=0;i< mies.length;i++){
             System.out.println(mies[i].x+","+mies[i].y+","+mies[i].speed);
             mies[i].move();
+            //能够移动 并且能被炸弹打
         }
+ */
+
 
         Mine[] mine = new Mine[2];
         for (int i=0;i< mine.length;i++){
             mine[i] =  new Mine(321,123);
         }
         for (int i=0;i< mine.length;i++){
-            System.out.println(mine[i].x+","+mine[i].y+","+mine[i].speed);
-            mine[i].move();
+            Mine m = mine[i];
+            System.out.println(m.x+","+m.y+","+m.speed);
+            m.move();
+            //能够移动 并且能打战舰
         }
 
         Bomb[] bomb = new Bomb[5];
@@ -57,8 +75,10 @@ public class World {    //游戏窗口
             bomb[i] = new Bomb(456,654);
         }
         for (int i=0;i< bomb.length;i++){
-            System.out.println(bomb[i].x+","+bomb[i].y+","+bomb[i].speed);
-            bomb[i].move();
+            Bomb b =bomb[i];
+            System.out.println(b.x+","+b.y+","+b.speed);
+            b.move();
+            //能够移动 并且能打潜艇
         }
 
 

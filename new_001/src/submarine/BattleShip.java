@@ -5,11 +5,12 @@ public class BattleShip extends SeaObject{
 
     // 构造方法
     BattleShip(){
-        width = 66;
-        height = 26;
-        x = 270;
-        y = 124;
-        speed = 20;
+        super(66,26,270,124,20);
+//        width = 66;
+//        height = 26;
+//        x = 270;
+//        y = 124;
+//        speed = 20;
         life = 5;
     }
 

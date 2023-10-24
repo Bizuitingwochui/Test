@@ -1,17 +1,18 @@
 package submarine;
-import java.util.Random;
 
 
 public class ObserveSubmarine extends SeaObject{
 
     // 构造方法
     ObserveSubmarine(){
+        /*
         width = 63;
         height = 19;
         x = -width;
         Random rand = new Random();
         y  = rand.nextInt(479-height-150+1)+150;    //生成一个 150-(窗口高-潜艇高）之间的随机数
         speed = rand.nextInt(3)+1;                  //生成一个 1-2之间的随机数
+         */
 
         /*
         随机的y坐标生成过程
@@ -21,6 +22,7 @@ public class ObserveSubmarine extends SeaObject{
         y = rand.nextInt(479-height-150+1)+150              460的由来 整个背景的y减去该图片的y
          */
 
+        super(63,19);
     }
 
     void move(){
