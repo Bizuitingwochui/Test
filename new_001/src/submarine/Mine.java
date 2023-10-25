@@ -2,7 +2,7 @@ package submarine;
 
 public class Mine extends SeaObject{
     // 构造方法
-    Mine(int x,int y){              //水雷的坐标需要通过水雷潜艇的坐标来计算
+    public Mine(int x,int y){              //水雷的坐标需要通过水雷潜艇的坐标来计算
         super(11,11,x,y,3);
 //        width = 11;
 //        height = 11;
@@ -11,7 +11,7 @@ public class Mine extends SeaObject{
 //        speed = 3;
     }
 
-    void move(){
-        System.out.println("鱼雷开始移动");
+    public void move(){
+        System.out.println("y向上移动");
     }
 }

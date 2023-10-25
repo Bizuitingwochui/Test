@@ -2,7 +2,7 @@ package submarine;
 
 public class TorpedoSubmarine extends SeaObject{
     // 构造方法
-    TorpedoSubmarine(){
+    public TorpedoSubmarine(){
         /*
         width = 64;
         height = 20;
@@ -15,8 +15,8 @@ public class TorpedoSubmarine extends SeaObject{
         super(64,20);
     }
 
-    void move(){
-        System.out.println("侦查艇开始移动");
+    public void move(){
+        System.out.println("鱼雷潜艇x向右移动");
     }
 
 }

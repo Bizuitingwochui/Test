@@ -11,7 +11,7 @@ public class Bomb extends SeaObject{
 //        speed = 3;
     }
 
-    void move(){
-        System.out.println("炸弹开始移动");
+    public void move(){
+        System.out.println("y向下移动");
     }
 }

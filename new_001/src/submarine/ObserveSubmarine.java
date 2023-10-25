@@ -4,7 +4,7 @@ package submarine;
 public class ObserveSubmarine extends SeaObject{
 
     // 构造方法
-    ObserveSubmarine(){
+    public ObserveSubmarine(){
         /*
         width = 63;
         height = 19;
@@ -25,8 +25,8 @@ public class ObserveSubmarine extends SeaObject{
         super(63,19);
     }
 
-    void move(){
-        System.out.println("侦查艇开始移动");
+   public void move(){
+        System.out.println("侦查潜艇x向右移动");
     }
 
 }

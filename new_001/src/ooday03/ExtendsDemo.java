@@ -1,4 +1,5 @@
 package ooday03;
+import ooday01.ConsDemo;
 
 public class ExtendsDemo {
     public static void main(String[] args) {        //子类可以访问父类 父类不能访问子类 具有继承性

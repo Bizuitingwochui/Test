@@ -2,7 +2,7 @@ package submarine;
 
 public class MineSubmarine extends SeaObject{
     // 构造方法
-    MineSubmarine(){
+    public MineSubmarine(){
         /*
         width = 63;
         height = 19;
@@ -17,7 +17,7 @@ public class MineSubmarine extends SeaObject{
 
     }
 
-    void move(){
-        System.out.println("鱼雷艇开始移动");
+    public void move(){
+        System.out.println("水雷潜艇x向右移动");
     }
 }

@@ -1,10 +1,10 @@
 package submarine;
 
 public class BattleShip extends SeaObject{
-    int life;
+    private int life;           //命数 私有
 
     // 构造方法
-    BattleShip(){
+    public BattleShip(){
         super(66,26,270,124,20);
 //        width = 66;
 //        height = 26;
@@ -12,6 +12,11 @@ public class BattleShip extends SeaObject{
 //        y = 124;
 //        speed = 20;
         life = 5;
+    }
+
+    //重写move移动
+    public void move(){
+        System.out.println("战舰X左右移动");
     }
 
 

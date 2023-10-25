@@ -2,6 +2,21 @@ package submarine;
 
 public class World {    //游戏窗口
     public static void main(String[] args) {
+        //重写方法如果被调用，看对象的类型
+        SeaObject o1 = new ObserveSubmarine();
+        o1.move();
+        SeaObject o2 = new ObserveSubmarine();
+        o2.move();
+
+
+
+
+
+
+
+
+
+
 
 //        oses[0] = new ObserveSubmarine();
 //        oses[1] = new ObserveSubmarine();
@@ -10,11 +25,11 @@ public class World {    //游戏窗口
 //        oses[2].move();
 
         SeaObject[] seaObjects = new SeaObject[5];          //向上造型 代码复用
+        seaObjects[0] = new ObserveSubmarine();
         seaObjects[1] = new ObserveSubmarine();
-        seaObjects[2] = new ObserveSubmarine();
+        seaObjects[2] = new TorpedoSubmarine();
         seaObjects[3] = new TorpedoSubmarine();
-        seaObjects[4] = new TorpedoSubmarine();
-        seaObjects[5] = new MineSubmarine();
+        seaObjects[4] = new MineSubmarine();
 
         for (int i=0;i<seaObjects.length;i++){
             SeaObject s = seaObjects[i];
