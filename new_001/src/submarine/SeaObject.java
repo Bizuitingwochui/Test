@@ -2,7 +2,7 @@ package submarine;
 
 import java.util.Random;
 
-public class SeaObject {
+public abstract class SeaObject {
 
     int width;                  //访问权限暂时搁置 还没讲到getter\setter
     int height;
@@ -18,7 +18,7 @@ public class SeaObject {
         this.height = height;
         x = -width;
         Random rand = new Random();
-        y  = rand.nextInt(479-height-150+1)+150;    //生成一个 150-(窗口高-潜艇高）之间的随机数
+        y  = rand.nextInt(World.HEIGHT-height-150+1)+150;    //生成一个 150-(窗口高-潜艇高）之间的随机数
         speed = rand.nextInt(3)+1;                  //生成一个 1-2之间的随机数
     }
 
@@ -34,9 +34,7 @@ public class SeaObject {
 
 
     //海洋移动
-    public void move(){
-        System.out.println("海洋对象开始移动");
-    }
+    public abstract void move();        //抽象方法 保持统一性 并且强制子类重写方法 包含抽象方法的类必须是抽象类
 }
 
 
