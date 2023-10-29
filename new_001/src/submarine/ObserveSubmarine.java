@@ -1,6 +1,8 @@
 package submarine;
 
 
+import javax.swing.ImageIcon;
+
 public class ObserveSubmarine extends SeaObject{
 
     // 构造方法
@@ -29,4 +31,7 @@ public class ObserveSubmarine extends SeaObject{
         System.out.println("侦查潜艇x向右移动");
     }
 
+    public ImageIcon getImage(){
+        return Images.obsersubm;
+    }
 }

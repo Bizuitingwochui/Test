@@ -1,5 +1,7 @@
 package submarine;
 
+import javax.swing.ImageIcon;
+
 public class BattleShip extends SeaObject{
     private int life;           //命数 私有
 
@@ -17,6 +19,10 @@ public class BattleShip extends SeaObject{
     //重写move移动
     public void move(){
         System.out.println("战舰X左右移动");
+    }
+
+    public ImageIcon getImage(){
+        return Images.battleship;
     }
 
 

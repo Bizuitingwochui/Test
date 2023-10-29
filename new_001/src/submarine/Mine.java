@@ -1,5 +1,7 @@
 package submarine;
 
+import javax.swing.ImageIcon;
+
 public class Mine extends SeaObject{
     // 构造方法
     public Mine(int x,int y){              //水雷的坐标需要通过水雷潜艇的坐标来计算
@@ -13,5 +15,9 @@ public class Mine extends SeaObject{
 
     public void move(){
         System.out.println("y向上移动");
+    }
+
+    public ImageIcon getImage(){
+        return Images.mine;
     }
 }

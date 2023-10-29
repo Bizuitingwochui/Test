@@ -1,5 +1,7 @@
 package submarine;
 
+import javax.swing.ImageIcon;
+
 public class Bomb extends SeaObject{
     // 构造方法
     Bomb(int x,int y){                             //炸弹坐标需要根据战舰坐标计算出来
@@ -13,5 +15,9 @@ public class Bomb extends SeaObject{
 
     public void move(){
         System.out.println("y向下移动");
+    }
+
+    public ImageIcon getImage(){
+        return Images.bomb;
     }
 }

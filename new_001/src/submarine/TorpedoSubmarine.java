@@ -1,5 +1,7 @@
 package submarine;
 
+import javax.swing.ImageIcon;
+
 public class TorpedoSubmarine extends SeaObject{
     // 构造方法
     public TorpedoSubmarine(){
@@ -19,4 +21,7 @@ public class TorpedoSubmarine extends SeaObject{
         System.out.println("鱼雷潜艇x向右移动");
     }
 
+    public ImageIcon getImage(){
+        return Images.torpesubm;
+    }
 }

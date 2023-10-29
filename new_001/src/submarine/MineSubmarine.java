@@ -1,5 +1,7 @@
 package submarine;
 
+import javax.swing.ImageIcon;
+
 public class MineSubmarine extends SeaObject{
     // 构造方法
     public MineSubmarine(){
@@ -19,5 +21,9 @@ public class MineSubmarine extends SeaObject{
 
     public void move(){
         System.out.println("水雷潜艇x向右移动");
+    }
+
+    public ImageIcon getImage(){
+        return Images.minesubm;
     }
 }
