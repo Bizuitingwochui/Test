@@ -28,7 +28,7 @@ public class ObserveSubmarine extends SeaObject{
     }
 
    public void move(){
-        System.out.println("侦查潜艇x向右移动");
+        this.x += this.speed;   //x+(向右)
     }
 
     public ImageIcon getImage(){

@@ -2,6 +2,7 @@ package submarine;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.Graphics;
+import java.util.Arrays;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -21,7 +22,8 @@ public class World extends JPanel{    //游戏窗口
     private SeaObject nextSubmarine(){
         Random random = new Random();
         int type = random.nextInt(20);                      //生成0-19的随机数
-        if (type <10 ){                                            //随机数小于10 生成侦查潜艇
+        if (type <10 ){
+            //随机数小于10 生成侦查潜艇
             return new ObserveSubmarine();
         } else if (type < 16) {                                    //随机数大于10小于16 生成鱼雷潜艇
             return new TorpedoSubmarine();
@@ -30,7 +32,43 @@ public class World extends JPanel{    //游戏窗口
         }
     }
 
+    private int subEnterIndex = 0;
+    /*   潜艇入场   */
+    private void submarineEnterAction(){
+        subEnterIndex++;                        //10毫秒增加1
+        if (subEnterIndex %40 ==0){             //400毫秒走一次
+            SeaObject obj = nextSubmarine();    //获取潜艇对象
+            submarines = Arrays.copyOf(submarines,submarines.length+1);     //数组扩容
+            submarines[submarines.length-1] = obj;          //将obj添加到最后一个元素上
+        }
+    }
 
+    private int mineEnterIndex = 0;
+    /* 水雷入场 */
+    private void mineEnterAction(){         //10毫秒走一次
+        mineEnterIndex++;
+        if (mineEnterIndex %100 ==0){
+            //暂时搁置
+//            Mine mine = new MineSubmarine().shootMine();
+//            mines = Arrays.copyOf(mines, mines.length+1);
+//            mines[mines.length-1] = mine;
+        }
+    }
+
+    private int moveEnterIndex = 0;
+    /* 海洋对象移动 */
+    private void moveAction(){          //每10毫秒走一次
+        for (int i =0;i<submarines.length;i++){         //遍历所有潜艇
+            submarines[i].move();                       //潜艇移动
+        }
+        for (int i =0;i<mines.length;i++){              //遍历所有的水雷
+            mines[i].move();                            //水雷的移动
+        }
+        for(int i =0;i<bombs.length;i++){               //遍历所有的炸弹
+            bombs[i].move();                            //炸弹的移动
+        }
+
+    }
 
 
 
@@ -45,7 +83,15 @@ public class World extends JPanel{    //游戏窗口
         timer.schedule(new TimerTask() {
             @Override
             public void run() {                                     //定时执行的事情（10毫秒自动执行）
-                /* 1.潜艇入场 水雷入场 海洋对象移动*/
+                /* 潜艇入场 */
+                submarineEnterAction();                             //潜艇入场
+                /* 水雷入场 */
+                mineEnterAction();
+                /* 海洋对象移动 */
+                moveAction();
+
+                repaint();                             //重画（自动调用paint()方法）  10毫秒走一次
+
             }
         }, interval, interval);                        //定时日程表
     }

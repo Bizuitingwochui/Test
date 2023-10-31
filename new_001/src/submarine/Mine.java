@@ -14,7 +14,7 @@ public class Mine extends SeaObject{
     }
 
     public void move(){
-        System.out.println("y向上移动");
+        this.y -= this.speed;
     }
 
     public ImageIcon getImage(){

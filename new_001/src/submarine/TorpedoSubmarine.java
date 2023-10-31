@@ -18,7 +18,7 @@ public class TorpedoSubmarine extends SeaObject{
     }
 
     public void move(){
-        System.out.println("鱼雷潜艇x向右移动");
+        this.x += this.speed;
     }
 
     public ImageIcon getImage(){

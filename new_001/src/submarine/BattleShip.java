@@ -18,7 +18,7 @@ public class BattleShip extends SeaObject{
 
     //重写move移动
     public void move(){
-        System.out.println("战舰X左右移动");
+        //暂时搁置
     }
 
     public ImageIcon getImage(){

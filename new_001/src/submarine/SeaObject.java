@@ -23,7 +23,7 @@ public abstract class SeaObject {
     public SeaObject(int width,int height){
         this.width = width;
         this.height = height;
-        x = width;                                          //暂时设为正
+        x = -width;                                          //暂时设为正
         Random rand = new Random();
         y  = rand.nextInt(World.HEIGHT-height-150+1)+150;    //生成一个 150-(窗口高-潜艇高）之间的随机数
         speed = rand.nextInt(3)+1;                  //生成一个 1-2之间的随机数
