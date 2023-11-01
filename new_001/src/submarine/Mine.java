@@ -20,4 +20,15 @@ public class Mine extends SeaObject{
     public ImageIcon getImage(){
         return Images.mine;
     }
+
+    public boolean isOutOfBounds(){
+//        if (this.y <= World.HEIGHT+150){
+//            return true;
+//        }
+//        else {
+//            return false;
+//        }
+
+        return this.y <= 150-this.height;
+    }
 }

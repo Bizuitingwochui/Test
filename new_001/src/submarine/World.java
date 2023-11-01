@@ -2,10 +2,13 @@ package submarine;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.Graphics;
+import java.awt.event.MouseAdapter;
 import java.util.Arrays;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class World extends JPanel{    //游戏窗口
 
@@ -70,6 +73,10 @@ public class World extends JPanel{    //游戏窗口
 
     }
 
+    /* 删除超出范围的对象 */
+    private void outOfBoundsAction(){
+
+    }
 
 
 
@@ -77,6 +84,33 @@ public class World extends JPanel{    //游戏窗口
 
      /* 启动程序  */
     private void action(){
+        //键盘侦听
+        KeyAdapter k = new KeyAdapter() {
+            /* 重写keyReleased()按键弹起事件  keyPressde()按键按下事件 */
+            @Override
+            public void keyReleased(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_SPACE){
+                    /* 炸弹入场 */
+                    Bomb obj = ship.shootBomb();
+                    bombs = Arrays.copyOf(bombs,bombs.length+1);
+                    bombs[bombs.length-1] = obj;
+                }
+            }
+        };
+        KeyAdapter k2 = new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {                    //左键 右键移动
+                if (e.getKeyCode() == KeyEvent.VK_LEFT){
+                    ship.leftMove();
+                }
+                if (e.getKeyCode() == KeyEvent.VK_RIGHT){
+                    ship.rightMove();
+                }
+            }
+        };
+        this.addKeyListener(k2);
+        this.addKeyListener(k);
+
         Timer timer = new Timer();                                  //创建定时器对象
         int interval = 10;                                          //定时间隔(毫秒为单位)
 
@@ -89,6 +123,8 @@ public class World extends JPanel{    //游戏窗口
                 mineEnterAction();
                 /* 海洋对象移动 */
                 moveAction();
+                /* 删除超出范围的对象 */
+                outOfBoundsAction();
 
                 repaint();                             //重画（自动调用paint()方法）  10毫秒走一次
 

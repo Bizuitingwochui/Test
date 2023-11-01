@@ -20,4 +20,16 @@ public class Bomb extends SeaObject{
     public ImageIcon getImage(){
         return Images.bomb;
     }
+
+    public boolean isOutOfBounds(){
+//        if (this.y > World.HEIGHT){
+//            return true;
+//        }
+//        else {
+//            return false;
+//        }
+        return this.y >= World.HEIGHT;
+    }
 }
+
+

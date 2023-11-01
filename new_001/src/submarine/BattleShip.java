@@ -25,6 +25,21 @@ public class BattleShip extends SeaObject{
         return Images.battleship;
     }
 
+    public Bomb shootBomb(){
+        return new Bomb(this.x+22,this.y+11);
+    }
+
+    public void rightMove(){                //战舰右移
+        if (this.x < World.WIDTH-this.width){
+            this.x += this.speed;
+        }
+    }
+
+    public void leftMove(){                 //战舰左移
+        if (this.x >0){
+            this.x -= this.speed;
+        }
+    }
 
 
 
