@@ -3,7 +3,7 @@ package submarine;
 
 import javax.swing.ImageIcon;
 
-public class ObserveSubmarine extends SeaObject{
+public class ObserveSubmarine extends SeaObject implements EnemyScore{
 
     // 构造方法
     public ObserveSubmarine(){
@@ -33,5 +33,9 @@ public class ObserveSubmarine extends SeaObject{
 
     public ImageIcon getImage(){
         return Images.obsersubm;
+    }
+
+    public int getScore(){      /* 得分10分 */
+        return 10;
     }
 }

@@ -2,7 +2,7 @@ package submarine;
 
 import javax.swing.ImageIcon;
 
-public class MineSubmarine extends SeaObject{
+public class MineSubmarine extends SeaObject implements EnemyLife{
     // 构造方法
     public MineSubmarine(){
         /*
@@ -30,5 +30,9 @@ public class MineSubmarine extends SeaObject{
         //水雷的x：水雷潜艇的x+水雷潜艇的宽
         //水雷的y：水雷潜艇的y-11(水雷的高)
         return new Mine(this.x+this.width,this.y-11);
+    }
+
+    public int getLife(){         /* 获得一条命 */
+        return 1;
     }
 }

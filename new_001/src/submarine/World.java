@@ -76,10 +76,27 @@ public class World extends JPanel{    //游戏窗口
     /* 删除超出范围的对象 */
     private void outOfBoundsAction(){
 
+        for (int i = 0;i<submarines.length;i++){        //遍历潜艇数组
+            if (submarines[i].isOutOfBounds()){         //如果有潜艇出街
+                submarines[i] = submarines[submarines.length-1];        //把出界的元素替换为最后一个元素
+                submarines = Arrays.copyOf(submarines,submarines.length-1); //缩容
+            }
+        }
+
+        for(int i = 0;i <mines.length;i++){
+            if (mines[i].isOutOfBounds()){
+                mines[i] = mines[mines.length-1];
+                mines = Arrays.copyOf(mines,mines.length-1);
+            }
+        }
+
+        for (int i =0;i<bombs.length;i++){
+            if (bombs[i].isOutOfBounds()){
+                bombs[i] = bombs[bombs.length-1];
+                bombs = Arrays.copyOf(bombs,bombs.length-1);
+            }
+        }
     }
-
-
-
 
 
      /* 启动程序  */
@@ -105,6 +122,9 @@ public class World extends JPanel{    //游戏窗口
                 }
                 if (e.getKeyCode() == KeyEvent.VK_RIGHT){
                     ship.rightMove();
+                }
+                if (e.getKeyCode() == KeyEvent.VK_P){
+//                    ship.rightMove();
                 }
             }
         };

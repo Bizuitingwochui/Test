@@ -2,7 +2,7 @@ package submarine;
 
 import javax.swing.ImageIcon;
 
-public class TorpedoSubmarine extends SeaObject{
+public class TorpedoSubmarine extends SeaObject implements EnemyScore{
     // 构造方法
     public TorpedoSubmarine(){
         /*
@@ -23,5 +23,9 @@ public class TorpedoSubmarine extends SeaObject{
 
     public ImageIcon getImage(){
         return Images.torpesubm;
+    }
+
+    public int getScore(){      /* 得分40分 */
+        return 40;
     }
 }

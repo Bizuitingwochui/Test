@@ -67,7 +67,6 @@ public abstract class SeaObject {
 //        else {
 //            return false;
 //        }
-
         return this.x >= World.WIDTH;
 
     }
