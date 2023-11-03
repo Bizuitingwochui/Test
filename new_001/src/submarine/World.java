@@ -51,10 +51,15 @@ public class World extends JPanel{    //游戏窗口
     private void mineEnterAction(){         //10毫秒走一次
         mineEnterIndex++;
         if (mineEnterIndex %100 ==0){
-            //暂时搁置
-//            Mine mine = new MineSubmarine().shootMine();
-//            mines = Arrays.copyOf(mines, mines.length+1);
-//            mines[mines.length-1] = mine;
+            for (int i=0;i<submarines.length;i++){                          //遍历所有潜艇
+                if (submarines[i] instanceof MineSubmarine){                //如果是水雷艇,因为超类里面没有shootmine方法
+                    MineSubmarine ms = (MineSubmarine) submarines[i];       //强转为水雷艇类型
+                    Mine obj = ms.shootMine();
+                    mines =Arrays.copyOf(mines,mines.length+1);   //扩容
+                    mines[mines.length-1] = obj ;                           //输出水雷
+                }
+            }
+
         }
     }
 

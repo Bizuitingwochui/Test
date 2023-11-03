@@ -61,14 +61,12 @@ public abstract class SeaObject {
 
     public boolean isOutOfBounds(){
         //x 超出world的width y 超出world的height
-//        if (this.x >=  World.WIDTH){
-//            return true;
-//        }
-//        else {
-//            return false;
-//        }
         return this.x >= World.WIDTH;
+    }
 
+    /* 碰撞检测 this：一个对象 other:另一个对象 */
+    public boolean isHit(SeaObject other){
+        return true;                    //没有完成 明天再说
     }
 
 }
