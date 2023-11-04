@@ -66,8 +66,35 @@ public abstract class SeaObject {
 
     /* 碰撞检测 this：一个对象 other:另一个对象 */
     public boolean isHit(SeaObject other){
-        return true;                    //没有完成 明天再说
+//        if (this.x-other.width < other.x && this.x < other.x && this.y+other.height> other.y &&this.y<other.y) {
+//            return true;
+//        }
+//        return false;
+        /* 假设潜艇为this,炸弹为other */
+        int x1 = this.x-other.width;        //x1 为潜艇的x-炸弹的宽
+        int x2 = this.x+this.width;        //x2 为潜艇的x+潜艇的宽
+        int y1 = this.y-other.height;       //y1 为潜艇的y-炸弹的高
+        int y2 = this.y+this.height;       //y2 为潜艇的y+潜艇的高
+        int x = other.x;
+        int y = other.y;
+        return x >= x1 && x<= x2 && y >= y1 && y<=y2; //当x在x1--x2之间并且 y在y1--y2之间说明碰撞上了
     }
+
+    public boolean isHitBatlltship(SeaObject other){                 //other是战舰的数据
+        int x1 = other.x;                                            //x1 为战舰的x
+        int x2 = other.x+other.width;                                //x2 为战舰的x+战舰的宽
+        int y1 = other.y+other.height;                               //y2 为战舰的y+战舰的高
+        int x = this.x;
+        int y = this.y;
+        return x >= x1 && x<= x2 && y == y1; //当x在x1--x2之间并且 y比y1小说明碰撞上了
+    }
+
+    /* 海洋生物死亡 */
+    public void goDead(){
+        state = DEAD;       //碰撞后把状态修改为DEAD
+    }
+
+
 
 }
 

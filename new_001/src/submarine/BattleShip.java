@@ -41,6 +41,15 @@ public class BattleShip extends SeaObject{
         }
     }
 
+    /* 战舰增加生命 */
+    public void addLife(int num){
+        life += num;
+    }
+
+    /* 获取当前命数 */
+    public int getLife(){
+        return life;
+    }
 
 
 }

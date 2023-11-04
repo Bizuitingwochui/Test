@@ -80,29 +80,78 @@ public class World extends JPanel{    //游戏窗口
 
     /* 删除超出范围的对象 */
     private void outOfBoundsAction(){
-
         for (int i = 0;i<submarines.length;i++){        //遍历潜艇数组
-            if (submarines[i].isOutOfBounds()){         //如果有潜艇出街
+            if (submarines[i].isOutOfBounds() || submarines[i].isDead()){         //如果有潜艇出街
                 submarines[i] = submarines[submarines.length-1];        //把出界的元素替换为最后一个元素
                 submarines = Arrays.copyOf(submarines,submarines.length-1); //缩容
             }
         }
 
         for(int i = 0;i <mines.length;i++){
-            if (mines[i].isOutOfBounds()){
+            if (mines[i].isOutOfBounds() || mines[i].isDead()){
                 mines[i] = mines[mines.length-1];
                 mines = Arrays.copyOf(mines,mines.length-1);
             }
         }
 
         for (int i =0;i<bombs.length;i++){
-            if (bombs[i].isOutOfBounds()){
+            if (bombs[i].isOutOfBounds() || bombs[i].isDead()){
                 bombs[i] = bombs[bombs.length-1];
                 bombs = Arrays.copyOf(bombs,bombs.length-1);
             }
         }
     }
 
+    private int score = 0;
+    /* 炸弹碰撞潜艇 */
+    private void bombBangAction(){      //每10毫秒走一次
+        for (int i=0;i<bombs.length;i++){                       //遍历炸弹数组
+            Bomb b = bombs[i];                                  //获取每一个炸弹
+            for (int o=0;o<submarines.length;o++){              //遍历潜艇数组
+                SeaObject s = submarines[o];                    //获取每一个潜艇
+                if (b.isLive() && s.isLive() && s.isHit(b)){    //首先双方得是活着的状态，并且发生了碰撞
+                    s.goDead();                                 //潜艇去死，从数组中删除
+                    b.goDead();                                 //炸弹去死，从数组中删除
+
+                    if (s instanceof EnemyScore){               //适用于所有实现了EnemyScore接口的
+                        EnemyScore es =(EnemyScore)s;           //被撞潜艇强转为score接口
+                        score += es.getScore();                 //玩家得分
+                    }
+                    if (s instanceof EnemyLife){                //适用于所有实现了EnemyLife接口的
+                        EnemyLife ef =(EnemyLife) s;            //被撞潜艇强转为life接口
+                        int num = ef.getLife();                 //获取命数
+                        ship.addLife(num);                      //给战舰增加命数
+                    }
+
+                }
+            }
+        }
+    }
+
+
+    /* 水雷碰撞战舰 */
+    private void mineBangBattleShip(){
+        for (int i=0;i<mines.length;i++){           //遍历水雷群组
+            Mine m = mines[i];
+            if (m.isLive() && ship.isLive() && m.isHitBatlltship(ship)){
+                m.goDead();
+                int num = -1;
+                ship.addLife(num);
+            }
+            int num = ship.getLife();
+            if (num == 0){
+                ship.goDead();
+            }
+        }
+    }
+
+
+    private void gameOver(){
+        if (ship.isDead()){
+            System.out.println("游戏结束 GAME OVER！");
+            System.exit(1);
+        }
+    }
 
      /* 启动程序  */
     private void action(){
@@ -148,8 +197,14 @@ public class World extends JPanel{    //游戏窗口
                 mineEnterAction();
                 /* 海洋对象移动 */
                 moveAction();
+                /* 检测是否发生炸弹潜艇碰撞 */
+                bombBangAction();
+                /* 检测是否发生水雷战舰碰撞 */
+                mineBangBattleShip();
                 /* 删除超出范围的对象 */
                 outOfBoundsAction();
+                /* 当战舰生命归零游戏结束 */
+                gameOver();
 
                 repaint();                             //重画（自动调用paint()方法）  10毫秒走一次
 
@@ -158,7 +213,7 @@ public class World extends JPanel{    //游戏窗口
     }
 
 
-    public void paint(Graphics g){          //重写paint方法，重叠画，背景图片需要放到最上面去画
+    public void paint(Graphics g){                  //重写paint方法，重叠画，背景图片需要放到最上面去画
         Images.sea.paintIcon(null,g,0,0);   //画出海洋背景图
         ship.paintImage(g);                         //画出战舰
         for (int i=0;i<submarines.length;i++){      //画出潜艇
@@ -170,6 +225,10 @@ public class World extends JPanel{    //游戏窗口
         for (int i=0;i<bombs.length;i++){           //画出炸弹
             bombs[i].paintImage(g);
         }
+
+        /* 画分数跟命数 */
+        g.drawString("SCORE:"+score,200,50);
+        g.drawString("LIFE:"+ship.getLife(),400,50);
     }
 
     public static void main(String[] args) {
