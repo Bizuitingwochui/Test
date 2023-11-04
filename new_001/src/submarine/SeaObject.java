@@ -86,7 +86,7 @@ public abstract class SeaObject {
         int y1 = other.y+other.height;                               //y2 为战舰的y+战舰的高
         int x = this.x;
         int y = this.y;
-        return x >= x1 && x<= x2 && y == y1; //当x在x1--x2之间并且 y比y1小说明碰撞上了
+        return x >= x1 && x<= x2 && y <= y1; //当x在x1--x2之间并且 y比y1小说明碰撞上了
     }
 
     /* 海洋生物死亡 */
