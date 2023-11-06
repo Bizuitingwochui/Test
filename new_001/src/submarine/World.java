@@ -20,6 +20,10 @@ public class World extends JPanel{    //游戏窗口
     private Mine[] mines = {};                                      //水雷数组对象
     private Bomb[] bombs = {};                                      //炸弹数组对象
 
+    public static final int RUNNING =0;             //运行状态
+    public static final int PAUSE =1;               //暂停状态
+    public static final int GAMEOVER=2;             //游戏结束状态
+    private int state = RUNNING;                    //当前状态 默认为运行状态
 
     /*  生成潜艇对象 */
     private SeaObject nextSubmarine(){
@@ -145,42 +149,47 @@ public class World extends JPanel{    //游戏窗口
         }
     }
 
-
+    /* 检测游戏结束 */
     private void gameOver(){
         if (ship.isDead()){
-            System.out.println("游戏结束 GAME OVER！");
-            System.exit(1);
+            state = GAMEOVER;
         }
     }
 
      /* 启动程序  */
     private void action(){
+
         //键盘侦听
         KeyAdapter k = new KeyAdapter() {
             /* 重写keyReleased()按键弹起事件  keyPressde()按键按下事件 */
             @Override
             public void keyReleased(KeyEvent e) {
-                if (e.getKeyCode() == KeyEvent.VK_SPACE){
-                    /* 炸弹入场 */
-                    Bomb obj = ship.shootBomb();
-                    bombs = Arrays.copyOf(bombs,bombs.length+1);
-                    bombs[bombs.length-1] = obj;
+                if (state == RUNNING) {
+                    if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+                        /* 炸弹入场 */
+                        Bomb obj = ship.shootBomb();
+                        bombs = Arrays.copyOf(bombs, bombs.length + 1);
+                        bombs[bombs.length - 1] = obj;
+                    }
                 }
             }
         };
         KeyAdapter k2 = new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {                    //左键 右键移动
-                if (e.getKeyCode() == KeyEvent.VK_LEFT){
-                    ship.leftMove();
-                }
-                if (e.getKeyCode() == KeyEvent.VK_RIGHT){
-                    ship.rightMove();
-                }
-                if (e.getKeyCode() == KeyEvent.VK_P){
+                if (state == RUNNING) {
+                    if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+                        ship.leftMove();
+                    }
+                    if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+                        ship.rightMove();
+                    }
+                    if (e.getKeyCode() == KeyEvent.VK_P) {
 //                    ship.rightMove();
+                    }
                 }
             }
+
         };
         this.addKeyListener(k2);
         this.addKeyListener(k);
@@ -191,23 +200,24 @@ public class World extends JPanel{    //游戏窗口
         timer.schedule(new TimerTask() {
             @Override
             public void run() {                                     //定时执行的事情（10毫秒自动执行）
-                /* 潜艇入场 */
-                submarineEnterAction();                             //潜艇入场
-                /* 水雷入场 */
-                mineEnterAction();
-                /* 海洋对象移动 */
-                moveAction();
-                /* 检测是否发生炸弹潜艇碰撞 */
-                bombBangAction();
-                /* 检测是否发生水雷战舰碰撞 */
-                mineBangBattleShip();
-                /* 删除超出范围的对象 */
-                outOfBoundsAction();
-                /* 当战舰生命归零游戏结束 */
-                gameOver();
+                if (state == RUNNING) {
+                    /* 潜艇入场 */
+                    submarineEnterAction();                             //潜艇入场
+                    /* 水雷入场 */
+                    mineEnterAction();
+                    /* 海洋对象移动 */
+                    moveAction();
+                    /* 检测是否发生炸弹潜艇碰撞 */
+                    bombBangAction();
+                    /* 检测是否发生水雷战舰碰撞 */
+                    mineBangBattleShip();
+                    /* 删除超出范围的对象 */
+                    outOfBoundsAction();
+                    /* 当战舰生命归零游戏结束 */
+                    gameOver();
 
-                repaint();                             //重画（自动调用paint()方法）  10毫秒走一次
-
+                    repaint();                             //重画（自动调用paint()方法）  10毫秒走一次
+                }
             }
         }, interval, interval);                        //定时日程表
     }
@@ -225,10 +235,13 @@ public class World extends JPanel{    //游戏窗口
         for (int i=0;i<bombs.length;i++){           //画出炸弹
             bombs[i].paintImage(g);
         }
-
         /* 画分数跟命数 */
         g.drawString("SCORE:"+score,200,50);
         g.drawString("LIFE:"+ship.getLife(),400,50);
+
+        if (state == GAMEOVER){                 //当前状态为游戏结束
+            Images.gameover.paintIcon(null,g,0,0);   //画出海洋背景图
+        }
     }
 
     public static void main(String[] args) {
