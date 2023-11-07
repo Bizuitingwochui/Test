@@ -164,6 +164,15 @@ public class World extends JPanel{    //游戏窗口
             /* 重写keyReleased()按键弹起事件  keyPressde()按键按下事件 */
             @Override
             public void keyReleased(KeyEvent e) {
+
+                if (e.getKeyCode() == KeyEvent.VK_P){
+                    if (state ==RUNNING){
+                        state = PAUSE;
+                    } else if (state == PAUSE) {
+                        state = RUNNING;
+                    }
+                }
+
                 if (state == RUNNING) {
                     if (e.getKeyCode() == KeyEvent.VK_SPACE) {
                         /* 炸弹入场 */
@@ -183,9 +192,6 @@ public class World extends JPanel{    //游戏窗口
                     }
                     if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
                         ship.rightMove();
-                    }
-                    if (e.getKeyCode() == KeyEvent.VK_P) {
-//                    ship.rightMove();
                     }
                 }
             }
