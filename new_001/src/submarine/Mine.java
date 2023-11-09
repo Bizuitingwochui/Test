@@ -14,7 +14,8 @@ public class Mine extends SeaObject{
     }
 
     public void move(){
-        this.y -= this.speed;
+        //this.y -= this.speed;
+        setY(getY()-getSpeed());
     }
 
     public ImageIcon getImage(){
@@ -29,6 +30,7 @@ public class Mine extends SeaObject{
 //            return false;
 //        }
 
-        return this.y <= 150-this.height;
+        //return this.y <= 150-this.height;
+        return getY() <= 150-getHeight();
     }
 }

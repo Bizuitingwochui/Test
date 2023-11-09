@@ -28,7 +28,8 @@ public class ObserveSubmarine extends SeaObject implements EnemyScore{
     }
 
    public void move(){
-        this.x += this.speed;   //x+(向右)
+        //this.x += this.speed;   //x+(向右)
+        setX(getX()+getSpeed());
     }
 
     public ImageIcon getImage(){

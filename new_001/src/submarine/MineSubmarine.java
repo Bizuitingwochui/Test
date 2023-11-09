@@ -18,7 +18,8 @@ public class MineSubmarine extends SeaObject implements EnemyLife{
     }
 
     public void move(){
-            this.x += this.speed;
+            //this.x += this.speed;
+        setX(getX()+getSpeed());
     }
 
     public ImageIcon getImage(){
@@ -29,7 +30,8 @@ public class MineSubmarine extends SeaObject implements EnemyLife{
     public Mine shootMine(){
         //水雷的x：水雷潜艇的x+水雷潜艇的宽
         //水雷的y：水雷潜艇的y-11(水雷的高)
-        return new Mine(this.x+this.width,this.y-11);
+        //return new Mine(this.x+this.width,this.y-11);
+        return new Mine(getX()+getWidth(),getY()-11);
     }
 
     public int getLife(){         /* 获得一条命 */

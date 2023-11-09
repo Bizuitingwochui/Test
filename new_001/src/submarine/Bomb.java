@@ -14,7 +14,8 @@ public class Bomb extends SeaObject{
     }
 
     public void move(){
-            this.y += this.speed;
+            //this.y += this.speed;
+        setY(getY()+getSpeed());
     }
 
     public ImageIcon getImage(){
@@ -28,7 +29,8 @@ public class Bomb extends SeaObject{
 //        else {
 //            return false;
 //        }
-        return this.y >= World.HEIGHT;
+        //return this.y >= World.HEIGHT;
+        return getY() >= World.HEIGHT;
     }
 }
 

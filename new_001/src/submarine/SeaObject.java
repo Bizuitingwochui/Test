@@ -9,13 +9,60 @@ public abstract class SeaObject {
 
     public static final int LIVE =0;    //活着的
     public static final int DEAD =1;    //死去的
-    int state = LIVE;                   //当前状态（默认是活着的）
+    private int state = LIVE;                   //当前状态（默认是活着的）
+    private int width;                  //访问权限暂时搁置 还没讲到getter\setter
+    private int height;
+    private int x;
+    private int y;
+    private int speed;
 
-    int width;                  //访问权限暂时搁置 还没讲到getter\setter
-    int height;
-    int x;
-    int y;
-    int speed;
+    public int getState(){
+        return state;
+    }
+
+    public void setState(int state){
+        this.state = state;
+    }
+
+    public int getWidth(){
+        return width;
+    }
+
+    public void setWidth(int width){
+        this.width = width;
+    }
+
+    public int getHeight(){
+        return height;
+    }
+
+    public void setHeight(int height){
+        this.height = height;
+    }
+
+    public int getX(){
+        return x;
+    }
+
+    public void setX(int x){
+        this.x = x;
+    }
+
+    public int getY(){
+        return y;
+    }
+
+    public void setY(int y){
+        this.y = y;
+    }
+
+    public int getSpeed(){
+        return speed;
+    }
+
+    public void setSpeed(int speed){
+        this.speed = speed;
+    }
 
     //专门给侦查潜艇、鱼雷潜艇、水雷潜艇提供
     //因为三种潜艇的 width\height不一致所以不能写死，需要传参

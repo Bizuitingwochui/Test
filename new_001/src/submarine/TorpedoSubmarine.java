@@ -18,7 +18,8 @@ public class TorpedoSubmarine extends SeaObject implements EnemyScore{
     }
 
     public void move(){
-        this.x += this.speed;
+        //this.x += this.speed;
+        setX(getX()+getSpeed());
     }
 
     public ImageIcon getImage(){
