@@ -26,18 +26,18 @@ public class BattleShip extends SeaObject{
     }
 
     public Bomb shootBomb(){
-        return new Bomb(this.x+22,this.y+11);
+        return new Bomb(getX()+22,getY()+11);
     }
 
     public void rightMove(){                //战舰右移
-        if (this.x < World.WIDTH-this.width){
-            this.x += this.speed;
+        if (getX() < World.WIDTH-getWidth()){
+            setX(getX()+getSpeed());
         }
     }
 
     public void leftMove(){                 //战舰左移
-        if (this.x >0){
-            this.x -= this.speed;
+        if (getX() >0){
+            setX(getX()-getSpeed());
         }
     }
 
