@@ -20,5 +20,6 @@ public class CollectionToArrayDemo {
         //toarray 方法需要传入一个数组吗，如果数组长>=集合.size 则将元素全部存入该数组后再返回
         //如果数组不可用 长度<集合.size 则会自动创建一个与集合等长的数组并将元素存入后返回
         System.out.println("数组："+ Arrays.toString(arrays));
+
     }
 }
