@@ -35,7 +35,7 @@ public class ListDemo {
 //        System.out.println(list);
 //        System.out.println("被替换的元素："+e);
 
-        for (int i=0;i<list.size()/2;i++){
+        for (int i=0;i<list.size()/2;i++){      //[five, four, three, two, one]
             String str = list.get(i);
             str = list.set(list.size()-1-i, str);
             list.set(i,str);
