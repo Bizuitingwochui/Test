@@ -10,6 +10,7 @@ public class WriteStringDemo {
         FileOutputStream fos = new FileOutputStream("text.txt");
         String line = "闭嘴听我吹";
         byte[] data = line.getBytes(StandardCharsets.UTF_8);
+
         fos.write(data);
 
         fos.write("闭嘴听我吹喔".getBytes(StandardCharsets.UTF_8));
