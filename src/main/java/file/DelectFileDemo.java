@@ -4,7 +4,7 @@ import java.io.File;
 
 public class DelectFileDemo {
     public static void main(String[] args) {
-        File file = new File("text.txt");
+        File file = new File(".txt");
         if (file.exists()){
             file.delete();
             System.out.println("文件已删除");
