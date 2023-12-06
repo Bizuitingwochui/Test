@@ -1,0 +1,81 @@
+package socket;
+
+import java.io.*;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.nio.charset.StandardCharsets;
+
+/*
+* 聊天室服务器
+* */
+public class Server {
+    /*
+        java.net.ServerSocket
+        运行在服务端的ServerSocket主要工作:
+        1:向系统申请对外的服务端口，客户端就是通过这个端口与服务端建立连接的
+        2:监听服务端口，一旦一个客户端建立连接立即接受并获取一个Socket实例与之交互
+
+        将ServerSocket想象为某客服呼叫中心的"总机"。用户拨打电话总是打给总机，然后
+        总机下面连接着若干部电话，分配一台电话与该用户沟通，从而做到服务端可以同时与
+        多个用户沟通的效果。
+    * */
+    public ServerSocket serverSocket;
+    public Server(){
+        try {
+            System.out.println("正在启动服务器");
+            /*
+                ServerSocket在创建时需要指定对外的服务端口，该端口不能不能与服务器
+                上其他运行的应用程序申请的端口一致，否则会报错:
+                java.net.BindException:address already in use
+                告知该地址已经被占用了，此时需要更换端口，或者自行在操作系统中杀死
+                占用该端口的应用程序。
+            * */
+            serverSocket = new ServerSocket(8088);
+            System.out.println("服务器正常启动");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    public void start(){
+        try {
+            System.out.println("等待客户端链接");
+            /*
+                ServerSocket一个重要的方法:
+                Socket accept()
+                接受客户端的连接，该方法是一个阻塞方法，调用会进入阻塞状态(卡住)
+                直到一个客户端建立连接，此时该方法会立即返回一个Socket与客户端
+                形成对等关系，并利用这个Socket与客户端交互。
+             */
+            Socket socket =  serverSocket.accept();
+            System.out.println("一个客户端链接了");
+
+            /*
+                    Socket重要的方法:
+                    InputStream getInputStream()
+                    通过Socket获取的输入流可以读取远端计算机发送过来的数据
+            */
+            InputStream in = socket.getInputStream();
+            InputStreamReader isr = new InputStreamReader(in, StandardCharsets.UTF_8);
+            BufferedReader br = new BufferedReader(isr);
+            //读取客户端的数据
+            while (true) {
+                String str = br.readLine();
+                if (str.equals("exit")){
+                    break;
+                }else {
+                    System.out.println("收到：" + str);
+                }
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    public static void main(String[] args) {
+        Server server = new Server();
+        server.start();
+    }
+}
