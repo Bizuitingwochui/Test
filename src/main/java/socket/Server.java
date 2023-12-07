@@ -40,7 +40,10 @@ public class Server {
 
     public void start(){
         try {
-            System.out.println("等待客户端链接");
+
+            Socket socket = null;
+            while (true) {
+                System.out.println("等待客户端链接");
             /*
                 ServerSocket一个重要的方法:
                 Socket accept()
@@ -48,26 +51,35 @@ public class Server {
                 直到一个客户端建立连接，此时该方法会立即返回一个Socket与客户端
                 形成对等关系，并利用这个Socket与客户端交互。
              */
-            Socket socket =  serverSocket.accept();
-            System.out.println("一个客户端链接了");
-
-            /*
+                socket = serverSocket.accept();
+                System.out.println("一个客户端链接了");
+                /*
                     Socket重要的方法:
                     InputStream getInputStream()
                     通过Socket获取的输入流可以读取远端计算机发送过来的数据
             */
-            InputStream in = socket.getInputStream();
-            InputStreamReader isr = new InputStreamReader(in, StandardCharsets.UTF_8);
-            BufferedReader br = new BufferedReader(isr);
-            //读取客户端的数据
-            while (true) {
-                String str = br.readLine();
-                if (str.equals("exit")){
-                    break;
-                }else {
-                    System.out.println("收到：" + str);
+                InputStream in = socket.getInputStream();
+                InputStreamReader isr = new InputStreamReader(in, StandardCharsets.UTF_8);
+                BufferedReader br = new BufferedReader(isr);
+                //读取客户端的数据
+//            while (true) {
+//                String str = br.readLine();
+//                if (str == null){
+//                    break;
+//                }
+//                System.out.println("收到：" + str);
+//            }
+                String line;
+                /*
+                 * 当客户端异常断开链接（没有调用 socket.close()断开）
+                 * window的客户端如果异常断开：服务器会抛出异常
+                 * linux的客户端异常断开，服务端会返回null
+                 * */
+                while ((line = br.readLine())!= null){
+                    System.out.println("收到"+line);
                 }
             }
+
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

@@ -53,16 +53,26 @@ public class Client {
                 System.out.println("请输入你想发的话（输入exit退出）：");
                 String str = scanner.nextLine();
                 if (str.equals("exit")){
-                    pw.println(str);
                     break;
-                }else {
-                    pw.println(str);
                 }
+                pw.println(str);
+
             }
+
 
 
         } catch (IOException e) {
             throw new RuntimeException(e);
+        }finally {
+            try {
+                /*
+                * 调用时会自动关闭通过socket获取的输入流与输出流
+                * 与对方进行4次挥手断开操作
+                * */
+                socket.close();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 
