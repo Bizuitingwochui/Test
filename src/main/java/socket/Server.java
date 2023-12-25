@@ -53,7 +53,39 @@ public class Server {
              */
                 socket = serverSocket.accept();
                 System.out.println("一个客户端链接了");
-                /*
+
+                //启动一个线程来处理与客户端的交互
+                ClientHander hander = new ClientHander(socket);
+                Thread t = new Thread(hander);
+                t.start();
+
+            }
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    public static void main(String[] args) {
+        Server server = new Server();
+        server.start();
+    }
+
+    /*
+    * 该线程负责与指定的客户端进行交互
+    * */
+    private class ClientHander implements Runnable{
+        private Socket socket;
+        private String host; //记录客户端的ip地址
+        public ClientHander(Socket socket){
+            this.socket = socket;
+            //获取客户端ip
+            host = socket.getInetAddress().getHostAddress();
+        }
+        public void run(){
+            try {
+            /*
                     Socket重要的方法:
                     InputStream getInputStream()
                     通过Socket获取的输入流可以读取远端计算机发送过来的数据
@@ -76,18 +108,11 @@ public class Server {
                  * linux的客户端异常断开，服务端会返回null
                  * */
                 while ((line = br.readLine())!= null){
-                    System.out.println("收到"+line);
+                    System.out.println(host+"收到"+line);
                 }
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
-
-        } catch (IOException e) {
-            throw new RuntimeException(e);
         }
-
-    }
-
-    public static void main(String[] args) {
-        Server server = new Server();
-        server.start();
     }
 }
