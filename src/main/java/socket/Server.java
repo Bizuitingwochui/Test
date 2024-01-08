@@ -94,6 +94,16 @@ public class Server {
                 InputStreamReader isr = new InputStreamReader(in, StandardCharsets.UTF_8);
                 BufferedReader br = new BufferedReader(isr);
                 //读取客户端的数据
+
+                //通过socket获取输出流 将消息发送给客户端
+                OutputStream out = socket.getOutputStream();
+                OutputStreamWriter osw = new OutputStreamWriter(out,StandardCharsets.UTF_8);
+                BufferedWriter bw = new BufferedWriter(osw);        //容易打成reader
+                PrintWriter pw = new PrintWriter(bw,true);
+
+
+
+
 //            while (true) {
 //                String str = br.readLine();
 //                if (str == null){
@@ -109,7 +119,11 @@ public class Server {
                  * */
                 while ((line = br.readLine())!= null){
                     System.out.println(host+"收到"+line);
+
+                    //将消息发送给客户端
+                    pw.println(host+"说："+line);
                 }
+
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }

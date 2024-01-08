@@ -2,6 +2,7 @@ package socket;
 
 import java.io.*;
 import java.net.Socket;
+import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
 
 /*
@@ -49,6 +50,15 @@ public class Client {
             OutputStreamWriter osw = new OutputStreamWriter(out);
             BufferedWriter bw = new BufferedWriter(osw);
             PrintWriter pw = new PrintWriter(bw,true);
+
+
+            //通过socket获取输入流 获取服务器发送来的数据
+            InputStream is = socket.getInputStream();
+            InputStreamReader isr = new InputStreamReader(is, StandardCharsets.UTF_8);
+            BufferedReader br = new BufferedReader(isr);
+
+            String line;
+
             while (true){
                 System.out.println("请输入你想发的话（输入exit退出）：");
                 String str = scanner.nextLine();
@@ -56,6 +66,8 @@ public class Client {
                     break;
                 }
                 pw.println(str);
+                line = br.readLine();
+                System.out.println(line);
 
             }
 
