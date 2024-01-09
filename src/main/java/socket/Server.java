@@ -4,6 +4,8 @@ import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
 
 /*
 * 聊天室服务器
@@ -20,6 +22,10 @@ public class Server {
         多个用户沟通的效果。
     * */
     public ServerSocket serverSocket;
+
+    //存放对应所有客户端的输出流，用于广播信息
+    private List<PrintWriter> allout = new ArrayList<>();
+
     public Server(){
         try {
             System.out.println("正在启动服务器");
@@ -101,7 +107,8 @@ public class Server {
                 BufferedWriter bw = new BufferedWriter(osw);        //容易打成reader
                 PrintWriter pw = new PrintWriter(bw,true);
 
-
+                //将该输出流存入到共享的集合中，其他的客户端可以将信息发送给这个客户端
+                allout.add(pw);
 
 
 //            while (true) {
@@ -118,15 +125,28 @@ public class Server {
                  * linux的客户端异常断开，服务端会返回null
                  * */
                 while ((line = br.readLine())!= null){
-                    System.out.println(host+"收到"+line);
-
-                    //将消息发送给客户端
-                    pw.println(host+"说："+line);
+                    sendMessage(host+"说"+line);
                 }
 
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
         }
+        /*
+        * 将给定的消息发送给所有客户端
+        * */
+        private void sendMessage(String line){
+
+            System.out.println(host+"收到"+line);
+            //将消息发送给所有客户端
+            for (PrintWriter p : allout) {
+                p.println(line);
+            }
+        }
     }
+
+    /*
+    * 该线程用于读取来自服务器发送过来的消息
+    * */
+
 }

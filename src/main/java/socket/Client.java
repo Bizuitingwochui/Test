@@ -39,6 +39,12 @@ public class Client {
         Scanner scanner = new Scanner(System.in);
         //字符串发给服务端
         try {
+            //启动用于读取服务器发送过来信息的线程 设置为守护线程
+            ServerHander hander = new ServerHander();
+            Thread t = new Thread(hander);
+            t.setDaemon(true);
+            t.start();
+
             /*
                 Socket提供的方法:
                 OutputStream getOutputStream()
@@ -51,14 +57,6 @@ public class Client {
             BufferedWriter bw = new BufferedWriter(osw);
             PrintWriter pw = new PrintWriter(bw,true);
 
-
-            //通过socket获取输入流 获取服务器发送来的数据
-            InputStream is = socket.getInputStream();
-            InputStreamReader isr = new InputStreamReader(is, StandardCharsets.UTF_8);
-            BufferedReader br = new BufferedReader(isr);
-
-            String line;
-
             while (true){
                 System.out.println("请输入你想发的话（输入exit退出）：");
                 String str = scanner.nextLine();
@@ -66,9 +64,6 @@ public class Client {
                     break;
                 }
                 pw.println(str);
-                line = br.readLine();
-                System.out.println(line);
-
             }
 
 
@@ -82,6 +77,22 @@ public class Client {
                 * 与对方进行4次挥手断开操作
                 * */
                 socket.close();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    public class ServerHander implements Runnable{
+        public void run(){
+            try {
+                InputStream in = socket.getInputStream();
+                InputStreamReader isr = new InputStreamReader(in,StandardCharsets.UTF_8);
+                BufferedReader br = new BufferedReader(isr);
+                String line;
+                while ((line = br.readLine())!=null){
+                    System.out.println(line);
+                }
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
