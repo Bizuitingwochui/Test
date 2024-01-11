@@ -90,6 +90,7 @@ public class Server {
             host = socket.getInetAddress().getHostAddress();
         }
         public void run(){
+            PrintWriter pw = null;
             try {
             /*
                     Socket重要的方法:
@@ -105,10 +106,15 @@ public class Server {
                 OutputStream out = socket.getOutputStream();
                 OutputStreamWriter osw = new OutputStreamWriter(out,StandardCharsets.UTF_8);
                 BufferedWriter bw = new BufferedWriter(osw);        //容易打成reader
-                PrintWriter pw = new PrintWriter(bw,true);
+                pw = new PrintWriter(bw,true);
 
                 //将该输出流存入到共享的集合中，其他的客户端可以将信息发送给这个客户端
-                allout.add(pw);
+                synchronized (allout) {
+                    allout.add(pw);
+                }
+
+                //广播该客户端上线的信息
+                sendMessage(host+"上线了，当前在线人数："+allout.size());
 
 
 //            while (true) {
@@ -127,20 +133,33 @@ public class Server {
                 while ((line = br.readLine())!= null){
                     sendMessage(host+"说"+line);
                 }
-
             } catch (IOException e) {
                 throw new RuntimeException(e);
+            }finally {
+                //统一处理客户端下线后的操作
+                //1.将该客户端的输出流从allOut中删除
+                allout.remove(pw);
+                sendMessage(host+"下线了，当前在线人数："+allout.size());
+                //2.关闭sockets释放资源
+                try {
+                    synchronized (allout) {
+                        socket.close();
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }
         /*
         * 将给定的消息发送给所有客户端
         * */
         private void sendMessage(String line){
-
-            System.out.println(host+"收到"+line);
-            //将消息发送给所有客户端
-            for (PrintWriter p : allout) {
-                p.println(line);
+            synchronized (allout) {
+                System.out.println(host + "收到" + line);
+                //将消息发送给所有客户端
+                for (PrintWriter p : allout) {
+                    p.println(line);
+                }
             }
         }
     }
